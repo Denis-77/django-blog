@@ -1,0 +1,48 @@
+{% extends "blog/base.html" %}
+{% load i18n %}
+
+
+{% block title %}{% trans "Blog" %}{% endblock %}
+{% block h1 %}
+  <h1>{% trans "Blog" %}</h1>
+{% endblock %}
+{% block pre-header %}
+  <div>
+    {% if multiadd %}
+      <a href="{% url 'multiadd' %}">{% trans "Upload CSV" %}</a>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+      {% if request.user.profile.photo %}
+        <img width="90px" height="70px" src="{{ request.user.profile.photo.url }}">
+      {% endif %}
+    <a href="{% url 'profile' %}">{% trans "My profile" %}</a>
+    <a href="{% url 'logout' %}">{% trans "Log Out" %}</a>
+    {% else %}
+    <a href="{% url 'login' %}">{% trans "Sign In" %}</a>
+    <a href="{% url 'registration' %}">{% trans "Sign Up" %}</a>
+    {% endif %}
+  </div>
+{% endblock %}
+{% block content %}
+    {% if request.user.is_authenticated %}
+    <div style="margin-bottom: 20px;">
+      <a href="{% url 'create_entry' %}">{% trans "Create a new entry" %}</a>
+    </div>
+    {% endif %}
+  {% for entry in entries %}
+  <article style="border: 1px solid #000">
+    <div class="profile" style="display: flex;">
+      {% if entry.author.profile.photo %}
+        <img style="margin-right: 20px;" width="90px" height="70px" src="{{ entry.author.profile.photo.url }}">
+      {% endif %}
+      <div>
+        <p>{{ entry.author.username }}</p>
+        <p>{{ entry.creation_date }}</p>
+      </div>
+    </div>
+    <p>{{ entry.title }}</p>
+    <p>{{ entry.short_content }}</p>
+    <a href="/entries/{{ entry.id }}/">{% trans "more ->" %}</a>
+  </article>
+  {% endfor %}
+{% endblock %}

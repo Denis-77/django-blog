@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% load i18n %}
+
+
+{% block title %}{% trans "My Profile" %}{% endblock %}
+
+{% block content %}
+  <a style="display: inline-block;" href="{% url 'main' %}">
+    <div style="margin-bottom: 20px;">{% trans "<- back" %}</div>
+  </a><br>
+  {% if request.user.profile.photo %}
+    <img width="90px" height="70px" src="{{ request.user.profile.photo.url }}">
+  {% endif %}
+  <p>{{ user.username }}</p>
+  <form method="post" action="{% url 'profile' %} " enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans "Save changes" %}</button>
+  </form>
+{% endblock %}

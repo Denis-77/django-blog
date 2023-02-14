@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+{% load i18n %}
+
+
+{% block title %}{% trans "Create a new entry" %}{% endblock %}
+{% block content %}
+  <a style="display: inline-block;" href="{% url 'main' %}">
+    <div style="margin-bottom: 20px;">{% trans "<- back" %}</div>
+  </a>
+  <h2>{% trans "Create a new entry" %}</h2>
+  <form method="post" action="{% url 'create_entry' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans "Create" %}</button>
+  </form>
+{% endblock %}

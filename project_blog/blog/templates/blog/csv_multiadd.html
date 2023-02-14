@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+{% load i18n %}
+
+
+{% block title %}{% trans "Multiaddition" %}{% endblock %}
+{% block content %}
+  <a style="display: inline-block;" href="{% url 'main' %}">
+    <div style="margin-bottom: 20px;">{% trans "<- back" %}</div>
+  </a>
+  <h2>{% trans "Multiaddition" %}</h2>
+  <form method="post" action="{% url 'multiadd' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans "Upload" %}</button>
+  </form>
+{% endblock %}

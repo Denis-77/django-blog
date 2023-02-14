@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+{% load i18n %}
+
+
+{% block title %}{% trans "LOG IN" %}{% endblock %}
+
+{% block content %}
+  <a style="display: inline-block;" href="{% url 'main' %}">
+    <div style="margin-bottom: 20px;">{% trans "<- back" %}</div>
+  </a>
+  <h2>{% trans "LOG IN" %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans "sign in" %}</button>
+  </form>
+{% endblock %}

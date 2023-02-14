@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% load i18n %}
+
+
+{% block title %}{{ entry.title }}{% endblock %}
+
+{% block content %}
+  <a style="display: inline-block;" href="{% url 'main' %}">
+    <div style="margin-bottom: 20px;">{% trans "<- back" %}</div>
+  </a>
+  <div class="profile" style="display: flex;">
+    {% if entry.author.profile.photo %}
+      <img width="90px" height="70px" src="{{ entry.author.profile.photo.url }}">
+    {% endif %}
+    <div>
+      <p>{{ entry.author.username }}</p>
+    </div>
+  </div>
+    <h2>{{ entry.title }}</h2>
+    <p>{{ entry.creation_date }}</p>
+    <p>{{ entry.content }}</p>
+    {% for photo in photos %}
+      <img src="{{ photo.file.url }}">
+    {% endfor %}
+{% endblock %}
